@@ -17,7 +17,7 @@ export class StateService {
     return this._http.get(this.stateUrl)
       .map((res: Response) => <IState[]>res.json())
       // distinct by state name
-      // .distinct(function (x) {return x.state})
+      //.distinct((x) => return x.state)
      ;
   }
 
