@@ -13,7 +13,22 @@ public getStates(): Observable<IState[]> {
     return this._http.get(this.stateUrl)
       .map((res: Response) => <IState[]>res.json())
       // distinct by state name
-       .distinct((x) => return x.state)
+       //.distinct((x) => return x.state)
+       .distinct(function (x) { return x.state; })
      ;
   }    
 ```
+
+## Conclusion
+
+The Rxjs distinct is about limiting the number of marbles that come accross the wire.   Since there is only one marble IState[] object it is not the right time to do data shaping.   The subscribe method is where this should occur.   By the time it reaches subscribe method it is a normal array.  By adding lodash utility this becomes as easy as...
+
+```typescript
+ngOnInit() {
+    this._stateServce.getStates()
+    .subscribe((stateData) => this.allStates = _.uniqBy(stateData, 'state')
+    
+    );
+  }
+```
+  

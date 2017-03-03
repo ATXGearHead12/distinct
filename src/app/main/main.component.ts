@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StateService } from '../Shared/state.service';
 import { IState } from '../Shared/state.interface';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +16,9 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this._stateServce.getStates()
-    .subscribe((stateData) => this.allStates = stateData);
+    .subscribe((stateData) => this.allStates = _.uniqBy(stateData, 'state')
+    
+    );
   }
 
 }

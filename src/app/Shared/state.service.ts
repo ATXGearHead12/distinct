@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { IState } from './state.interface';
 
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/distinct';
+
 
 @Injectable()
 export class StateService {
@@ -16,9 +16,6 @@ export class StateService {
   public getStates(): Observable<IState[]> {
     return this._http.get(this.stateUrl)
       .map((res: Response) => <IState[]>res.json())
-      // distinct by state name
-      //.distinct((x) => return x.state)
-     ;
   }
 
 }
